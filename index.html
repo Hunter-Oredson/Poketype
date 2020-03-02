@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+   <meta charset="UTF-8">
+   <title>Pokémon type converter</title>
+   <link rel="stylesheet" href="main.css">
+   <body class="grid-container">
+      <header class="grid-item">
+         <h1><img src="images/charizard.jpg" alt="charizard" onclick="curse(this)">
+         Pokémon type converter
+         <img src="images/pikachu.png" alt="pikachu" onclick="curse(this)"></h1>
+      </header>
+      <menu class="grid-item">
+         <h1>MENU</h1>
+         <input id="attack" type="button" value="Attacking" onclick="change()"></input>
+         <br>
+         <input id="defend" type="button" value="Defending" onclick="change()"></input>
+         <br>
+         <p>Generation:<select name="gen"> 
+            <option value="VI">VI+</option>
+            <option value="IV V">IV & V</option>
+            <option value="II III">II & III</option>
+            <option value="I">I</option>
+         </select></p>
+         <input type="button" onclick="change()" value="Reset"></input>
+         <img src="images/gengar.png" alt="gengar" id="gengar">
+         <p> <a href="index.html">Home Page</a></p>
+      </menu>
+      <main class="grid-item" id="info">
+         <h1>Information</h1>
+            <div id="startup" style="display: block;">
+               <h3><strong>About this website</strong></h3>
+               <p>This site will calculate which Pokémon type is super effective and not very effective to fight against.</p>
+               <br>
+               <p>To begin, just click on either the "Attacking" or "Defending" button located on the Menu. If you click "Attacking", this will refer to the type of Pokémon you are attacking, that means it could be multi-valued (two at most). The "Defending" button is for choosing what type of Pokémon you are defending with and will let you know what type of moves to look out for.</p>
+               <p>The "Generation" drop down in the menu will let you choose which generation of Pokémon you are referring to. You will notice that the older generations are missing some types of Pokémon compared to the newest generation.</p>
+               <br>
+               <p>If you want to know more about Pokémon then you can visit their official website <a href="https://www.pokemon.com/us/">Here</a></p>
+            </div>
+            <div id="types" style="display: none;">
+               <button  id="bug" type="button" onclick="buttonType(bug)"><img src="images/bug.jpg" alt="bug"> <div id="bug">0</div></button>
+               <button  id="dark" type="button" onclick="buttonType(dark)"><img src="images/dark.jpg" alt="dark"> <div id="dark">0</div></button>
+               <button  id="dragon" type="button" onclick="buttonType(dragon)"><img src="images/dragon.jpg" alt="dragon"> <div id="dragon">0</div></button>     
+               <button  id="electric" type="button" onclick="buttonType(electric)"><img src="images/electric.jpg" alt="electric"> <div id="electric">0</div></button>       
+               <button  id="fairy" type="button" onclick="buttonType(fairy)"><img src="images/fairy.jpg" alt="fairy"> <div id="fairy">0</div></button>   
+               <button  id="fighting" type="button" onclick="buttonType(fighting)"><img src="images/fighting.jpg" alt="fighting"> <div id="fighting">0</div></button>    
+               <button  id="fire" type="button" onclick="buttonType(fire)"><img src="images/fire.jpg" alt="fire"> <div id="fire">0</div></button>
+               <button  id="flying" type="button" onclick="buttonType(flying)"><img src="images/flying.jpg" alt="flying"> <div id="flying">0</div></button>  
+               <button  id="ghost" type="button" onclick="buttonType(ghost)"><img src="images/ghost.jpg" alt="ghost"> <div id="ghost">0</div></button> 
+               <button  id="grass" type="button" onclick="buttonType(grass)"><img src="images/grass.jpg" alt="grass"> <div id="grass">0</div></button> 
+               <button  id="ground" type="button" onclick="buttonType(ground)"><img src="images/ground.jpg" alt="ground"> <div id="ground">0</div></button>   
+               <button  id="ice" type="button" onclick="buttonType(ice)"><img src="images/ice.jpg" alt="ice"> <div id="ice">0</div></button>
+               <button  id="normal" type="button" onclick="buttonType(normal)"><img src="images/normal.jpg" alt="normal"> <div id="normal">0</div></button>    
+               <button  id="poison" type="button" onclick="buttonType(poison)"><img src="images/poison.jpg" alt="poison"> <div id="poison">0</div></button>    
+               <button  id="psychic" type="button" onclick="buttonType(psychic)"><img src="images/psychic.jpg" alt="psychic"> <div id="psychic">0</div></button>   
+               <button  id="rock" type="button" onclick="buttonType(rock)"><img src="images/rock.jpg" alt="rock"> <div id="rock">0</div></button>
+               <button  id="steel" type="button" onclick="buttonType(steel)"><img src="images/steel.jpg" alt="steel"> <div id="steel">0</div></button>
+               <button  id="water" type="button" onclick="buttonType(water)"><img src="images/water.jpg" alt="water"> <div id="water">0</div></button>
+            </div>      
+      </main>
+      <footer class="grid-item">
+         <p>Created by Hunter Oredson</p>
+         <p>All images belong to their original creator, this was made just for fun and as a school project.</p>
+      </footer>
+   </body>
+
+   <script>
+      var startText = document.getElementById("startup"); 
+      var main_head = document.getElementById("info");
+      var types = document.getElementById("types");
+      var button = types.getElementsByTagName("button");
+      var inputs = document.getElementsByTagName("input");
+      var option = document.getElementsByTagName("option");
+      var chosenTypes = [];
+      var effectiveness = {bug: 1, dark: 1, dragon: 1, electric: 1, fairy: 1, fighting: 1, fire: 1, flying: 1, ghost: 1, grass: 1, ground: 1, ice: 1, normal: 1, poison: 1, psychic: 1, rock: 1, steel: 1, water: 1};
+      
+      var gengar = document.getElementById("gengar");
+      gengar.addEventListener("mouseover", function() {gengar.style.setProperty("transition", "opacity 5s ease-in-out"); gengar.style.setProperty("opacity", "0");});
+      inputs[0].addEventListener("click", function() {
+         inputs[0].style.setProperty("background-color", "gray");
+         inputs[1].style.setProperty("background-color", "white");
+      });
+      inputs[1].addEventListener("click", function() {
+         inputs[1].style.setProperty("background-color", "gray");
+         inputs[0].style.setProperty("background-color", "white");
+      });
+      document.addEventListener("change", function() {
+         var dark = document.getElementById("dark");
+         var steel = document.getElementById("steel");
+         var fairy = document.getElementById("fairy");
+         for (i = 0; i < option.length; i++){
+         if (option[i].selected == true){
+            if (option[i].innerHTML == 'I');{
+               dark.style.setProperty("display", "none");
+               steel.style.setProperty("display", "none");
+               fairy.style.setProperty("display", "none");
+            }
+            if (option[i].innerHTML == "II &amp; III") {
+               dark.style.setProperty("display", "block");
+               steel.style.setProperty("display", "block");
+               fairy.style.setProperty("display", "none");
+            }
+            if (option[i].innerHTML == "IV &amp; V") {
+               dark.style.setProperty("display", "block");
+               steel.style.setProperty("display", "block");
+               fairy.style.setProperty("display", "none");
+            }
+            if (option[i].innerHTML == "VI+") {
+               dark.style.setProperty("display", "block");
+               steel.style.setProperty("display", "block");
+               fairy.style.setProperty("display", "block");
+            }
+         }
+         }
+      });
+      function buttonType(type) {
+         if (chosenTypes.length === 0) {
+            chosenTypes.push(type[0].id);
+            main_head.children[0].innerHTML = "Type: " + chosenTypes[0].toUpperCase();
+         }
+         else if (chosenTypes.length === 1) {
+            effectiveness.bug = 1; effectiveness.dark = 1; effectiveness.dragon = 1; effectiveness.electric = 1; effectiveness.fairy = 1; effectiveness.fighting = 1; effectiveness.fire = 1; effectiveness.flying = 1; effectiveness.ghost = 1; effectiveness.grass = 1; effectiveness.ground = 1; effectiveness.ice = 1; effectiveness.normal = 1; effectiveness.poison = 1; effectiveness.psychic = 1; effectiveness.rock = 1; effectiveness.steel = 1; effectiveness.water = 1;
+            if (chosenTypes[0] === type[0].id) {
+            }
+            else {
+            chosenTypes.push(type[0].id);
+            main_head.children[0].innerHTML = "Type: " + chosenTypes[0].toUpperCase() + '/' +chosenTypes[1].toUpperCase();
+            }
+         }
+         else {
+            effectiveness.bug = 1; effectiveness.dark = 1; effectiveness.dragon = 1; effectiveness.electric = 1; effectiveness.fairy = 1; effectiveness.fighting = 1; effectiveness.fire = 1; effectiveness.flying = 1; effectiveness.ghost = 1; effectiveness.grass = 1; effectiveness.ground = 1; effectiveness.ice = 1; effectiveness.normal = 1; effectiveness.poison = 1; effectiveness.psychic = 1; effectiveness.rock = 1; effectiveness.steel = 1; effectiveness.water = 1;
+            if (chosenTypes[1] == type[0].id) {
+               chosenTypes.shift();
+               main_head.children[0].innerHTML = "Type: " + chosenTypes[0].toUpperCase();
+            }
+            else if (chosenTypes[0] == type[0].id) {
+               chosenTypes.pop();
+               main_head.children[0].innerHTML = "Type: " + chosenTypes[0].toUpperCase();
+            }
+            else {
+               chosenTypes.shift();
+               chosenTypes.push(type[0].id);
+               main_head.children[0].innerHTML = "Type: " + chosenTypes[0].toUpperCase() + '/' +chosenTypes[1].toUpperCase();
+            }
+         }
+         calculate();
+      }
+      function calculate() {
+         if (inputs[0].style.backgroundColor == "gray"){
+         if (chosenTypes[0] == "bug" | chosenTypes[1] == "bug"){
+            effectiveness.flying *= 2; effectiveness.rock *= 2; effectiveness.fire *= 2;
+            effectiveness.fighting /= 2; effectiveness.ground /= 2; effectiveness.grass /= 2;
+         }
+         if (chosenTypes[0] == "dark" | chosenTypes[1] == "dark"){
+            effectiveness.fighting *= 2; effectiveness.bug *= 2; effectiveness.fairy *= 2;
+            effectiveness.ghost /= 2; effectiveness.dark /= 2; effectiveness.psychic *= 0;
+         }
+         if (chosenTypes[0] == "dragon" | chosenTypes[1] == "dragon"){
+            effectiveness.dragon *= 2; effectiveness.fairy *= 2; effectiveness.ice *= 2;
+            effectiveness.electric /= 2; effectiveness.fire /= 2; effectiveness.grass /= 2; effectiveness.water /= 2;
+         }
+         if (chosenTypes[0] == "electric" | chosenTypes[1] == "electric"){
+            effectiveness.ground *= 2;
+            effectiveness.flying /= 2; effectiveness.steel /=2; effectiveness.electric /= 2;
+         }
+         if (chosenTypes[0] == "fairy" | chosenTypes[1] == "fairy"){
+            effectiveness.poison *= 2; effectiveness.steel *= 2;
+            effectiveness.fighting /= 2; effectiveness.bug /= 2; effectiveness.dark /= 2; effectiveness.dragon *= 0;
+         }
+         if (chosenTypes[0] == "fighting" | chosenTypes[1] == "fighting"){
+            effectiveness.flying *= 2; effectiveness.psychic *= 2; effectiveness.fairy *= 2;
+            effectiveness.rock /= 2; effectiveness.bug /= 2; effectiveness.dark /=2;
+         } 
+         if (chosenTypes[0] == "fire" | chosenTypes[1] == "fire"){
+            effectiveness.ground *= 2; effectiveness.rock *= 2; effectiveness.water *= 2;
+            effectiveness.bug /= 2; effectiveness.steel /= 2; effectiveness.fire /= 2; effectiveness.grass /= 2; effectiveness.ice /= 2; effectiveness.fairy /= 2;
+         }
+         if (chosenTypes[0] == "flying" | chosenTypes[1] == "flying"){
+            effectiveness.rock *= 2; effectiveness.electric *= 2; effectiveness.ice *= 2;
+            effectiveness.fighting /= 2; effectiveness.bug /= 2; effectiveness.grass /= 2; effectiveness.ground *= 0;
+         }
+         if (chosenTypes[0] == "ghost" | chosenTypes[1] == "ghost"){
+            effectiveness.ghost *= 2; effectiveness.dark *= 2;
+            effectiveness.poison /= 2; effectiveness.bug /= 2;
+            effectiveness.normal *= 0; effectiveness.fighting *= 0;
+         }
+         if (chosenTypes[0] == "grass" | chosenTypes[1] == "grass"){
+            effectiveness.flying *= 2; effectiveness.poison *= 2; effectiveness.bug *= 2; effectiveness.fire *= 2; effectiveness.ice *= 2;
+            effectiveness.ground /= 2; effectiveness.water /= 2; effectiveness.grass /= 2; effectiveness.electric /= 2;
+         }
+         if (chosenTypes[0] == "ground" | chosenTypes[1] == "ground"){
+            effectiveness.water *= 2; effectiveness.grass *= 2; effectiveness.ice *= 2;
+            effectiveness.poison /= 2; effectiveness.rock /= 2; effectiveness.electric *= 0;
+         }
+         if (chosenTypes[0] == "ice" | chosenTypes[1] == "ice"){
+            effectiveness.fighting *= 2; effectiveness.rock *= 2; effectiveness.steel *= 2; effectiveness.fire *= 2;
+            effectiveness.ice /= 2;
+         }
+         if (chosenTypes[0] == "normal" | chosenTypes[1] == "normal"){
+            effectiveness.fighting *= 2; 
+            effectiveness.ghost *= 0;
+         }
+         if (chosenTypes[0] == "poison" | chosenTypes[1] == "poison"){
+            effectiveness.ground *= 2; effectiveness.psychic *= 2;
+            effectiveness.fighting /= 2; effectiveness.poison /= 2; effectiveness.bug /= 2; effectiveness.grass /= 2; effectiveness.fairy /= 2;
+         }
+         if (chosenTypes[0] == "psychic" | chosenTypes[1] == "psychic"){
+            effectiveness.bug *= 2; effectiveness.ghost *= 2; effectiveness.dark *= 2;
+            effectiveness.fighting /= 2; effectiveness.psychic /= 2;
+         }
+         if (chosenTypes[0] == "rock" | chosenTypes[1] == "rock"){
+            effectiveness.fighting *= 2; effectiveness.ground *= 2; effectiveness.steel *= 2; effectiveness.water *= 2; effectiveness.grass *= 2;
+            effectiveness.normal /= 2; effectiveness.flying /= 2; effectiveness.poison /= 2; effectiveness.fire /= 2;
+         }
+         if (chosenTypes[0] == "steel" | chosenTypes[1] == "steel"){
+            effectiveness.fighting *= 2; effectiveness.ground *= 2; effectiveness.fire *= 2;
+            effectiveness.normal /= 2; effectiveness.flying /= 2; effectiveness.rock /= 2; effectiveness.bug /= 2; effectiveness.steel /= 2; effectiveness.grass /= 2; effectiveness.psychic /= 2; effectiveness.ice /= 2; effectiveness.dragon /= 2; effectiveness.fairy /= 2;
+            effectiveness.poison *= 0;
+         }
+         if (chosenTypes[0] == "water" | chosenTypes[1] == "water"){
+            effectiveness.grass *= 2; effectiveness.electric *= 2;
+            effectiveness.steel /= 2; effectiveness.fire /= 2; effectiveness.water /= 2; effectiveness.ice /= 2;
+         } 
+         }
+         else {
+            if (chosenTypes[0] == "bug" | chosenTypes[1] == "bug"){
+            effectiveness.grass *= 2; effectiveness.psychic *= 2; effectiveness.dark *= 2;
+            effectiveness.fighting /= 2; effectiveness.flying /= 2; effectiveness.poison /= 2; effectiveness.ghost /= 2; effectiveness.steel /= 2; effectiveness.fire /= 2; effectiveness.fairy /= 2;
+         }
+         if (chosenTypes[0] == "dark" | chosenTypes[1] == "dark"){
+            effectiveness.ghost *= 2; effectiveness.psychic *= 2;
+            effectiveness.fighting /= 2; effectiveness.dark /= 2; effectiveness.fairy *= 0;
+         }
+         if (chosenTypes[0] == "dragon" | chosenTypes[1] == "dragon"){
+            effectiveness.dragon *= 2; effectiveness.fiary *= 0;
+            effectiveness.steel /= 2;
+         }
+         if (chosenTypes[0] == "electric" | chosenTypes[1] == "electric"){
+            effectiveness.flying *= 2; effectiveness.water *= 2; effectiveness.ground *= 0;
+            effectiveness.grass /= 2; effectiveness.electric /=2; effectiveness.dragon /= 2;
+         }
+         if (chosenTypes[0] == "fairy" | chosenTypes[1] == "fairy"){
+            effectiveness.poison /= 2; effectiveness.steel /= 2; effectiveness.fire /= 2;
+            effectiveness.fighting *= 2; effectiveness.dragon *= 2; effectiveness.dark *= 2; effectiveness.dragon *= 0;
+         }
+         if (chosenTypes[0] == "fighting" | chosenTypes[1] == "fighting"){
+            effectiveness.flying /= 2; effectiveness.psychic /= 2; effectiveness.fairy /= 2; effectiveness.poison /= 2; effectiveness.bug /= 2;
+            effectiveness.rock *= 2; effectiveness.normal *= 2; effectiveness.dark *=2; effectiveness.steel *= 2; effectiveness.ice /= 2;
+         } 
+         if (chosenTypes[0] == "fire" | chosenTypes[1] == "fire"){
+            effectiveness.bug *= 2; effectiveness.steel *= 2; effectiveness.grass *= 2; effectiveness.ice *= 2;
+            effectiveness.rock /= 2; effectiveness.water /= 2; effectiveness.fire /= 2; effectiveness.dragon /= 2;
+         }
+         if (chosenTypes[0] == "flying" | chosenTypes[1] == "flying"){
+            effectiveness.fighting *= 2; effectiveness.bug *= 2; effectiveness.grass *= 2;
+            effectiveness.rock /= 2; effectiveness.steel /= 2; effectiveness.electric /= 2;
+         }
+         if (chosenTypes[0] == "ghost" | chosenTypes[1] == "ghost"){
+            effectiveness.ghost *= 2; effectiveness.psychic *= 2;
+            effectiveness.dark /= 2;
+            effectiveness.normal *= 0;
+         }
+         if (chosenTypes[0] == "grass" | chosenTypes[1] == "grass"){
+            effectiveness.ground *= 2; effectiveness.rock *= 2; effectiveness.water *= 2;
+            effectiveness.flying /= 2; effectiveness.bug /= 2; effectiveness.grass /= 2; effectiveness.steel /= 2; effectiveness.fire /= 2; effectiveness.poison /= 2; effectiveness.dragon /= 2;
+         }
+         if (chosenTypes[0] == "ground" | chosenTypes[1] == "ground"){
+            effectiveness.poison *= 2; effectiveness.rock *= 2; effectiveness.steel *= 2; effectiveness.fire *= 2; effectiveness.electric *= 2;
+            effectiveness.bug /= 2; effectiveness.grass /= 2; effectiveness.flying *= 0;
+         }
+         if (chosenTypes[0] == "ice" | chosenTypes[1] == "ice"){
+            effectiveness.flying *= 2; effectiveness.ground *= 2; effectiveness.grass *= 2; effectiveness.dragon *= 2;
+            effectiveness.ice /= 2; effectiveness.steel /= 2; effectiveness.fire /= 2; effectiveness.water /= 2;
+         }
+         if (chosenTypes[0] == "normal" | chosenTypes[1] == "normal"){
+            effectiveness.rock /= 2; effectiveness.steel /= 2;
+            effectiveness.ghost *= 0;
+         }
+         if (chosenTypes[0] == "poison" | chosenTypes[1] == "poison"){
+            effectiveness.grass *= 2; effectiveness.fairy *= 2;
+            effectiveness.ground /= 2; effectiveness.poison /= 2; effectiveness.rock /= 2; effectiveness.ghost /= 2; effectiveness.steel *= 0;
+         }
+         if (chosenTypes[0] == "psychic" | chosenTypes[1] == "psychic"){
+            effectiveness.fighting *= 2; effectiveness.poison *= 2; effectiveness.dark *= 0;
+            effectiveness.steel /= 2; effectiveness.psychic /= 2;
+         }
+         if (chosenTypes[0] == "rock" | chosenTypes[1] == "rock"){
+            effectiveness.flying *= 2; effectiveness.bug *= 2; effectiveness.fire *= 2; effectiveness.ice *= 2;
+            effectiveness.fighting /= 2; effectiveness.ground /= 2; effectiveness.steel /= 2;
+         }
+         if (chosenTypes[0] == "steel" | chosenTypes[1] == "steel"){
+            effectiveness.rock *= 2; effectiveness.ice *= 2; effectiveness.fairy *= 2;
+            effectiveness.steel /= 2; effectiveness.fire /= 2; effectiveness.water /= 2; effectiveness.electric /= 2;
+         }
+         if (chosenTypes[0] == "water" | chosenTypes[1] == "water"){
+            effectiveness.ground *= 2; effectiveness.rock *= 2;
+            effectiveness.water /= 2; effectiveness.fire *= 2; effectiveness.grass /= 2; effectiveness.dragon /= 2;
+         } 
+         }
+         display();
+      }
+
+      function display() {
+         var bug = document.getElementById("bug");
+         bug.children[1].innerHTML = effectiveness.bug;
+         if (effectiveness.bug < 1)
+            bug.style.setProperty("background-color", "coral");
+         if (effectiveness.bug < 0.5)
+            bug.style.setProperty("background-color", "red");
+         if (effectiveness.bug > 1)
+            bug.style.setProperty("background-color", "greenyellow");
+         if (effectiveness.bug > 2)
+            bug.style.setProperty("background-color", "green");
+         if (effectiveness.bug == 1)
+            bug.style.setProperty("background-color", "white");
+         if (effectiveness.bug == 0)
+            bug.style.setProperty("background-color", "gray");
+
+         var dark = document.getElementById("dark");
+         dark.children[1].innerHTML = effectiveness.dark;
+         if (effectiveness.dark < 1)
+            dark.style.setProperty("background-color", "coral");
+         if (effectiveness.dark < 0.5)
+            dark.style.setProperty("background-color", "red");
+         if (effectiveness.dark > 1)
+            dark.style.setProperty("background-color", "greenyellow");
+         if (effectiveness.dark > 2)
+            dark.style.setProperty("background-color", "green");
+         if (effectiveness.dark == 1)
+            dark.style.setProperty("background-color", "white");
+         if (effectiveness.dark == 0)
+            dark.style.setProperty("background-color", "gray");
+         
+         var dragon = document.getElementById("dragon");
+         dragon.children[1].innerHTML = effectiveness.dragon;
+         if (effectiveness.dragon < 1)
+            dragon.style.setProperty("background-color", "coral");
+            if (effectiveness.dragon < 0.5)
+            dragon.style.setProperty("background-color", "red");
+            if (effectiveness.dragon > 1)
+            dragon.style.setProperty("background-color", "greenyellow");
+         if (effectiveness.dragon > 2)
+            dragon.style.setProperty("background-color", "green");
+         if (effectiveness.dragon == 1)
+            dragon.style.setProperty("background-color", "white");
+            if (effectiveness.dragon == 0)
+            dragon.style.setProperty("background-color", "gray");
+
+         var electric = document.getElementById("electric");
+         electric.children[1].innerHTML = effectiveness.electric;
+         if (effectiveness.electric < 1)
+            electric.style.setProperty("background-color", "coral");
+            if (effectiveness.electric < 0.5)
+            electric.style.setProperty("background-color", "red");
+            if (effectiveness.electric > 1)
+            electric.style.setProperty("background-color", "greenyellow");
+         if (effectiveness.electric > 2)
+            electric.style.setProperty("background-color", "green");
+         if (effectiveness.electric == 1)
+            electric.style.setProperty("background-color", "white");
+            if (effectiveness.electric == 0)
+            electric.style.setProperty("background-color", "gray");
+
+         var fairy = document.getElementById("fairy");
+         fairy.children[1].innerHTML = effectiveness.fairy;
+         if (effectiveness.fairy < 1)
+            fairy.style.setProperty("background-color", "coral");
+            if (effectiveness.fairy < 0.5)
+            fairy.style.setProperty("background-color", "red");
+            if (effectiveness.fairy > 1)
+            fairy.style.setProperty("background-color", "greenyellow");
+         if (effectiveness.fairy > 2)
+            fairy.style.setProperty("background-color", "green");
+         if (effectiveness.fairy == 1)
+            fairy.style.setProperty("background-color", "white");
+            if (effectiveness.fairy == 0)
+            fairy.style.setProperty("background-color", "gray");
+
+         var fighting = document.getElementById("fighting");
+         fighting.children[1].innerHTML = effectiveness.fighting;
+         if (effectiveness.fighting < 1)
+            fighting.style.setProperty("background-color", "coral");
+            if (effectiveness.fighting < 0.5)
+            fighting.style.setProperty("background-color", "red");
+            if (effectiveness.fighting > 1)
+            fighting.style.setProperty("background-color", "greenyellow");
+         if (effectiveness.fighting > 2)
+            fighting.style.setProperty("background-color", "green");
+         if (effectiveness.fighting == 1)
+            fighting.style.setProperty("background-color", "white");
+            if (effectiveness.fighting == 0)
+            fighting.style.setProperty("background-color", "gray");
+
+         var fire = document.getElementById("fire");
+         fire.children[1].innerHTML = effectiveness.fire;
+         if (effectiveness.fire < 1)
+            fire.style.setProperty("background-color", "coral");
+            if (effectiveness.fire < 0.5)
+            fire.style.setProperty("background-color", "red");
+            if (effectiveness.fire > 1)
+            fire.style.setProperty("background-color", "greenyellow");
+         if (effectiveness.fire > 2)
+            fire.style.setProperty("background-color", "green");
+         if (effectiveness.fire == 1)
+            fire.style.setProperty("background-color", "white");
+            if (effectiveness.fire == 0)
+            fire.style.setProperty("background-color", "gray");
+
+         var flying = document.getElementById("flying");
+         flying.children[1].innerHTML = effectiveness.flying;
+         if (effectiveness.flying < 1)
+            flying.style.setProperty("background-color", "coral");
+            if (effectiveness.flying < 0.5)
+            flying.style.setProperty("background-color", "red");
+            if (effectiveness.flying > 1)
+            flying.style.setProperty("background-color", "greenyellow");
+         if (effectiveness.flying > 2)
+            flying.style.setProperty("background-color", "green");
+         if (effectiveness.flying == 1)
+            flying.style.setProperty("background-color", "white");
+            if (effectiveness.flying == 0)
+            flying.style.setProperty("background-color", "gray");
+
+         var ghost = document.getElementById("ghost");
+         ghost.children[1].innerHTML = effectiveness.ghost;
+         if (effectiveness.ghost < 1)
+            ghost.style.setProperty("background-color", "coral");
+            if (effectiveness.ghost < 0.5)
+            ghost.style.setProperty("background-color", "red");
+            if (effectiveness.ghost > 1)
+            ghost.style.setProperty("background-color", "greenyellow");
+         if (effectiveness.ghost > 2)
+            ghost.style.setProperty("background-color", "green");
+         if (effectiveness.ghost == 1)
+            ghost.style.setProperty("background-color", "white");
+            if (effectiveness.ghost == 0)
+            ghost.style.setProperty("background-color", "gray");
+
+         var grass = document.getElementById("grass");
+         grass.children[1].innerHTML = effectiveness.grass;
+         if (effectiveness.grass < 1)
+            grass.style.setProperty("background-color", "coral");
+            if (effectiveness.grass < 0.5)
+            grass.style.setProperty("background-color", "red");
+            if (effectiveness.grass > 1)
+            grass.style.setProperty("background-color", "greenyellow");
+         if (effectiveness.grass > 2)
+            grass.style.setProperty("background-color", "green");
+         if (effectiveness.grass == 1)
+            grass.style.setProperty("background-color", "white");
+            if (effectiveness.grass == 0)
+            grass.style.setProperty("background-color", "gray");
+
+         var ground = document.getElementById("ground");
+         ground.children[1].innerHTML = effectiveness.ground;
+         if (effectiveness.ground < 1)
+            ground.style.setProperty("background-color", "coral");
+            if (effectiveness.ground < 0.5)
+            ground.style.setProperty("background-color", "red");
+            if (effectiveness.ground > 1)
+            ground.style.setProperty("background-color", "greenyellow");
+         if (effectiveness.ground > 2)
+            ground.style.setProperty("background-color", "green");
+         if (effectiveness.ground == 1)
+            ground.style.setProperty("background-color", "white");
+            if (effectiveness.ground == 0)
+            ground.style.setProperty("background-color", "gray");
+
+         var ice = document.getElementById("ice");
+         ice.children[1].innerHTML = effectiveness.ice;
+         if (effectiveness.ice < 1)
+            ice.style.setProperty("background-color", "coral");
+            if (effectiveness.ice < 0.5)
+            ice.style.setProperty("background-color", "red");
+            if (effectiveness.ice > 1)
+            ice.style.setProperty("background-color", "greenyellow");
+         if (effectiveness.ice > 2)
+            ice.style.setProperty("background-color", "green");
+         if (effectiveness.ice == 1)
+            ice.style.setProperty("background-color", "white");
+            if (effectiveness.ice == 0)
+            ice.style.setProperty("background-color", "gray");
+
+         var normal = document.getElementById("normal");
+         normal.children[1].innerHTML = effectiveness.normal;
+         if (effectiveness.normal < 1)
+            normal.style.setProperty("background-color", "coral");
+            if (effectiveness.normal < 0.5)
+            normal.style.setProperty("background-color", "red");
+            if (effectiveness.normal > 1)
+            normal.style.setProperty("background-color", "greenyellow");
+         if (effectiveness.normal > 2)
+            normal.style.setProperty("background-color", "green");
+         if (effectiveness.normal == 1)
+            normal.style.setProperty("background-color", "white");
+            if (effectiveness.normal == 0)
+            normal.style.setProperty("background-color", "gray");
+
+         var poison= document.getElementById("poison");
+         poison.children[1].innerHTML = effectiveness.poison;
+         if (effectiveness.poison < 1)
+            poison.style.setProperty("background-color", "coral");
+            if (effectiveness.poison < 0.5)
+            poison.style.setProperty("background-color", "red");
+            if (effectiveness.poison > 1)
+            poison.style.setProperty("background-color", "greenyellow");
+         if (effectiveness.poison > 2)
+            poison.style.setProperty("background-color", "green");
+         if (effectiveness.poison == 1)
+            poison.style.setProperty("background-color", "white");
+            if (effectiveness.poison == 0)
+            poison.style.setProperty("background-color", "gray");
+
+         var psychic = document.getElementById("psychic");
+         psychic.children[1].innerHTML = effectiveness.psychic;
+         if (effectiveness.psychic < 1)
+            psychic.style.setProperty("background-color", "coral");
+            if (effectiveness.psychic < 0.5)
+            psychic.style.setProperty("background-color", "red");
+            if (effectiveness.psychic > 1)
+            psychic.style.setProperty("background-color", "greenyellow");
+         if (effectiveness.psychic > 2)
+            psychic.style.setProperty("background-color", "green");
+         if (effectiveness.psychic == 1)
+            psychic.style.setProperty("background-color", "white");
+            if (effectiveness.psychic == 0)
+            psychic.style.setProperty("background-color", "gray");
+
+         var rock = document.getElementById("rock");
+         rock.children[1].innerHTML = effectiveness.rock;
+         if (effectiveness.rock < 1)
+            rock.style.setProperty("background-color", "coral");
+            if (effectiveness.rock < 0.5)
+            rock.style.setProperty("background-color", "red");
+            if (effectiveness.rock > 1)
+            rock.style.setProperty("background-color", "greenyellow");
+         if (effectiveness.rock > 2)
+            rock.style.setProperty("background-color", "green");
+         if (effectiveness.rock == 1)
+            rock.style.setProperty("background-color", "white");
+            if (effectiveness.rock == 0)
+            rock.style.setProperty("background-color", "gray");
+
+         var steel = document.getElementById("steel");
+         steel.children[1].innerHTML = effectiveness.steel;
+         if (effectiveness.steel < 1)
+            steel.style.setProperty("background-color", "coral");
+            if (effectiveness.steel < 0.5)
+            steel.style.setProperty("background-color", "red");
+            if (effectiveness.steel > 1)
+            steel.style.setProperty("background-color", "greenyellow");
+         if (effectiveness.steel > 2)
+            steel.style.setProperty("background-color", "green");
+         if (effectiveness.steel == 1)
+            steel.style.setProperty("background-color", "white");
+            if (effectiveness.steel == 0)
+            steel.style.setProperty("background-color", "gray");
+
+         var water = document.getElementById("water");
+         water.children[1].innerHTML = effectiveness.water;
+         if (effectiveness.water < 1)
+            water.style.setProperty("background-color", "coral");
+            if (effectiveness.water < 0.5)
+            water.style.setProperty("background-color", "red");
+            if (effectiveness.water > 1)
+            water.style.setProperty("background-color", "greenyellow");
+         if (effectiveness.water > 2)
+            water.style.setProperty("background-color", "green");
+         if (effectiveness.water == 1)
+            water.style.setProperty("background-color", "white");
+            if (effectiveness.water == 0)
+            water.style.setProperty("background-color", "gray");
+      }
+
+      function change() {
+         if (startText.style.display === "block") {
+            startText.style.setProperty("display", "none");
+            types.style.setProperty ("display", "flex");
+            main_head.children[0].innerHTML = "Type: ";
+         }
+         else {
+            if (chosenTypes.length == 2) {
+               chosenTypes.shift(); chosenTypes.shift()
+            }
+            if (chosenTypes.length == 1)
+               chosenTypes.pop();
+            
+            main_head.children[0].innerHTML = "Type: ";
+            effectiveness.bug = 1; effectiveness.dark = 1; effectiveness.dragon = 1; effectiveness.electric = 1; effectiveness.fairy = 1; effectiveness.fighting = 1; effectiveness.fire = 1; effectiveness.flying = 1; effectiveness.ghost = 1; effectiveness.grass = 1; effectiveness.ground = 1; effectiveness.ice = 1; effectiveness.normal = 1; effectiveness.poison = 1; effectiveness.psychic = 1; effectiveness.rock = 1; effectiveness.steel = 1; effectiveness.water = 1;
+            display();
+         }
+      }
+
+      function curse(image) {
+         if (image.alt == "charizard") {
+         image.src = "images/cursed_charizard.png";
+         }
+         else if (image.alt == "pikachu") {
+         image.src = "images/cursed_pikachu.png";
+         }
+      }
+   </script>
+</html>

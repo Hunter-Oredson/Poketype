@@ -1,0 +1,421 @@
+/*Hunter Oredson
+CS-2550-001-002-Spring 
+2/19/20 
+*/
+@media all and (max-width: 700px) {
+  header h1 img {
+    display: none;
+  }
+}
+
+@media all and (max-width: 960px) {
+  header h1 img {
+    width: 145px;
+  }
+}
+
+@media all and (max-width: 900px) {
+  header h1 img {
+    width: 100px;
+    margin: 0px 10px 0px 10px;
+  }
+}
+
+:root {
+  max-width: 1080px;
+  background-color: khaki;
+}
+
+body {
+  background-color: white;
+  font-family: Helvetica, sans-serif;
+}
+
+body.grid-container {
+  color: #595959;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 150px auto auto;
+      grid-template-columns: 150px auto auto;
+  -ms-grid-rows: auto auto auto;
+      grid-template-rows: auto auto auto;
+}
+
+header {
+  background-color: #EF2B2F;
+  border-bottom: 2px solid black;
+  text-align: center;
+  color: black;
+}
+
+header.grid-item {
+  -ms-grid-row: 1;
+  grid-row: 1;
+  -ms-grid-column: 1;
+      grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+header h1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+header img {
+  width: 175px;
+  margin: 0px 50px 0px 50px;
+}
+
+menu {
+  -webkit-margin-before: 0em;
+          margin-block-start: 0em;
+  -webkit-margin-after: 0em;
+          margin-block-end: 0em;
+}
+
+menu.grid-item {
+  -ms-grid-column: 1;
+  grid-column: 1;
+  grid-column-end: 2;
+  background-color: #CAEBF2;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 0px;
+  text-align: center;
+  border-right: 2px solid black;
+}
+
+menu img {
+  width: 150px;
+  margin-top: 20px;
+}
+
+main {
+  background-color: #FFFFFF;
+  margin: 0;
+  padding: 5px 20px;
+  max-width: 875px;
+}
+
+main h1 {
+  text-align: center;
+  text-decoration: underline;
+}
+
+main.grid-item {
+  -ms-grid-row: 2;
+  grid-row: 2;
+  -ms-grid-column: 2;
+  grid-column: 2;
+}
+
+main div h3 {
+  text-align: center;
+}
+
+main div#types {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+main div#types button {
+  border: none;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  -webkit-transition-duration: 0.1s;
+          transition-duration: 0.1s;
+  font-weight: bold;
+  font-size: 14pt;
+}
+
+main div#types button#bug {
+  border: 2px solid #B0BE20;
+}
+
+main div#types button#bug:hover {
+  border-color: black;
+}
+
+main div#types button#bug:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
+}
+
+main div#types button#dark {
+  border: 2px solid #7E624C;
+}
+
+main div#types button#dark:hover {
+  border-color: black;
+}
+
+main div#types button#dark:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
+}
+
+main div#types button#dragon {
+  border: 2px solid #7B69F3;
+}
+
+main div#types button#dragon:hover {
+  border-color: black;
+}
+
+main div#types button#dragon:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
+}
+
+main div#types button#electric {
+  border: 2px solid #FAD03C;
+}
+
+main div#types button#electric:hover {
+  border-color: black;
+}
+
+main div#types button#electric:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
+}
+
+main div#types button#fairy {
+  border: 2px solid #e19de8;
+}
+
+main div#types button#fairy:hover {
+  border-color: black;
+}
+
+main div#types button#fairy:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
+}
+
+main div#types button#fighting {
+  border: 2px solid #AF5c4A;
+}
+
+main div#types button#fighting:hover {
+  border-color: black;
+}
+
+main div#types button#fighting:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
+}
+
+main div#types button#fire {
+  border: 2px solid #E54C3C;
+}
+
+main div#types button#fire:hover {
+  border-color: black;
+}
+
+main div#types button#fire:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
+}
+
+main div#types button#flying {
+  border: 2px solid #6896f4;
+}
+
+main div#types button#flying:hover {
+  border-color: black;
+}
+
+main div#types button#flying:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
+}
+
+main div#types button#ghost {
+  border: 2px solid #6c6cc4;
+}
+
+main div#types button#ghost:hover {
+  border-color: black;
+}
+
+main div#types button#ghost:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
+}
+
+main div#types button#grass {
+  border: 2px solid #80c747;
+}
+
+main div#types button#grass:hover {
+  border-color: black;
+}
+
+main div#types button#grass:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
+}
+
+main div#types button#ground {
+  border: 2px solid #d8bb43;
+}
+
+main div#types button#ground:hover {
+  border-color: black;
+}
+
+main div#types button#ground:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
+}
+
+main div#types button#ice {
+  border: 2px solid #87dbfd;
+}
+
+main div#types button#ice:hover {
+  border-color: black;
+}
+
+main div#types button#ice:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
+}
+
+main div#types button#normal {
+  border: 2px solid #aeb39f;
+}
+
+main div#types button#normal:hover {
+  border-color: black;
+}
+
+main div#types button#normal:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
+}
+
+main div#types button#poison {
+  border: 2px solid #a65a98;
+}
+
+main div#types button#poison:hover {
+  border-color: black;
+}
+
+main div#types button#poison:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
+}
+
+main div#types button#psychic {
+  border: 2px solid #e85aa6;
+}
+
+main div#types button#psychic:hover {
+  border-color: black;
+}
+
+main div#types button#psychic:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
+}
+
+main div#types button#rock {
+  border: 2px solid #baac65;
+}
+
+main div#types button#rock:hover {
+  border-color: black;
+}
+
+main div#types button#rock:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
+}
+
+main div#types button#steel {
+  border: 2px solid #b0b1c6;
+}
+
+main div#types button#steel:hover {
+  border-color: black;
+}
+
+main div#types button#steel:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
+}
+
+main div#types button#water {
+  border: 2px solid #4ba0fd;
+}
+
+main div#types button#water:hover {
+  border-color: black;
+}
+
+main div#types button#water:active {
+  -webkit-transform: scale(0.95, 0.95);
+          transform: scale(0.95, 0.95);
+}
+
+footer {
+  border-top: 2px solid black;
+  text-align: center;
+  font-size: 10pt;
+}
+
+footer.grid-item {
+  -ms-grid-row: 3;
+  grid-row: 3;
+  -ms-grid-column: 1;
+  grid-column: 1;
+  grid-column-end: 3;
+}
+
+a:link {
+  color: #595959;
+}
+
+a:visited {
+  color: #595959;
+}
+
+a:hover {
+  color: #EF2B2F;
+}
+
+a:active {
+  color: #EF2B2F;
+}
+/*# sourceMappingURL=main.css.map */
